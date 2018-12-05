@@ -6,6 +6,9 @@
 package br.data.entity;
 
 import java.io.Serializable;
+import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -28,6 +31,8 @@ import javax.xml.bind.annotation.XmlRootElement;
     , @NamedQuery(name = "Cidade.findByNome", query = "SELECT c FROM Cidade c WHERE c.nome = :nome")})
 public class Cidade implements Serializable {
 
+   // private List<Cidade> list;
+    
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
@@ -83,5 +88,7 @@ public class Cidade implements Serializable {
     public String toString() {
         return "br.data.entity.Cidade[ codigo=" + codigo + " ]";
     }
+
+   // public List<Cidade> getAllRows()
     
 }
