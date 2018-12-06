@@ -57,6 +57,8 @@ public class CadCidade extends javax.swing.JInternalFrame {
         jScrollPane2 = new javax.swing.JScrollPane();
         jList1 = new javax.swing.JList<>();
         jButton3 = new javax.swing.JButton();
+        jLabel3 = new javax.swing.JLabel();
+        txtUF = new javax.swing.JTextField();
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -104,30 +106,32 @@ public class CadCidade extends javax.swing.JInternalFrame {
             }
         });
 
+        jLabel3.setText("UF");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jButton1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButton2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButton3))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel1)
-                            .addComponent(jLabel2))
+                            .addComponent(jLabel2)
+                            .addComponent(jLabel3))
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtUF, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(txtCod, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(txtNome, javax.swing.GroupLayout.PREFERRED_SIZE, 216, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                .addComponent(jButton1)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jButton2)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton3)))
+                    .addComponent(jScrollPane2))
                 .addContainerGap(103, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -141,14 +145,18 @@ public class CadCidade extends javax.swing.JInternalFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(txtNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(33, 33, 33)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel3)
+                    .addComponent(txtUF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton1)
                     .addComponent(jButton2)
                     .addComponent(jButton3))
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(39, Short.MAX_VALUE))
+                .addContainerGap(34, Short.MAX_VALUE))
         );
 
         pack();
@@ -156,7 +164,7 @@ public class CadCidade extends javax.swing.JInternalFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-        add(txtNome.getText(), txtCod.getText());
+        add(txtNome.getText(), txtCod.getText(), txtUF.getText());
         limpar();
         listar();
         txtCod.requestFocus();
@@ -167,12 +175,14 @@ public class CadCidade extends javax.swing.JInternalFrame {
         cid.setNome(nome);
         new br.data.crud.CrudCidade().persist(cid);*/
     }//GEN-LAST:event_jButton1ActionPerformed
-    public void add(String nomeTxt, String codTxt){
+    public void add(String nomeTxt, String codTxt, String ufTxt){
          br.data.entity.Cidade cid= new br.data.entity.Cidade();
         int cod = Integer.parseInt(codTxt);
         String nome = nomeTxt;
+        String uf = ufTxt;
         cid.setCodigo(cod);
         cid.setNome(nome);
+        cid.setUF(uf);
         new br.data.crud.CrudCidade().persist(cid);
 
     }
@@ -195,6 +205,7 @@ public class CadCidade extends javax.swing.JInternalFrame {
              for (br.data.entity.Cidade cid : new br.data.crud.CrudCidade().getAll()) {
                  if(jList1.getSelectedValue() == cid.getNome()){
                      txtCod.setText(cid.getCodigo().toString());
+                     txtUF.setText(cid.getUF());
                  }
             }
              txtNome.setText(jList1.getSelectedValue());
@@ -203,16 +214,18 @@ public class CadCidade extends javax.swing.JInternalFrame {
     });
     }
     
-    private void delete(String nome, int cod){
+    private void delete(String nome, int cod, String uf){
         br.data.entity.Cidade cid= new br.data.entity.Cidade();
         cid.setCodigo(cod);
         cid.setNome(nome);
+        cid.setUF(uf);
         new br.data.crud.CrudCidade().remove(cid);
 }
     
     public void limpar(){
         txtNome.setText("");
         txtCod.setText("");
+        txtUF.setText("");
     }
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
@@ -223,7 +236,7 @@ public class CadCidade extends javax.swing.JInternalFrame {
         if("".equals(txtCod.getText()) || "".equals(txtNome.getText())){
             JOptionPane.showMessageDialog(null, "Informe os dados da cidade a ser excluida");
         }else{
-            delete(txtNome.getText(), Integer.parseInt(txtCod.getText()));
+            delete(txtNome.getText(), Integer.parseInt(txtCod.getText()), txtUF.getText());
             limpar();
             listar();
         }// TODO add your handling code here:
@@ -236,11 +249,13 @@ public class CadCidade extends javax.swing.JInternalFrame {
     private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JList<String> jList1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JTable jTable1;
     private javax.swing.JTextField txtCod;
     private javax.swing.JTextField txtNome;
+    private javax.swing.JTextField txtUF;
     // End of variables declaration//GEN-END:variables
 }

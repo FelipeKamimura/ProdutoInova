@@ -28,7 +28,8 @@ import javax.xml.bind.annotation.XmlRootElement;
 @NamedQueries({
     @NamedQuery(name = "Cidade.findAll", query = "SELECT c FROM Cidade c")
     , @NamedQuery(name = "Cidade.findByCodigo", query = "SELECT c FROM Cidade c WHERE c.codigo = :codigo")
-    , @NamedQuery(name = "Cidade.findByNome", query = "SELECT c FROM Cidade c WHERE c.nome = :nome")})
+    , @NamedQuery(name = "Cidade.findByNome", query = "SELECT c FROM Cidade c WHERE c.nome = :nome")
+    , @NamedQuery(name = "Cidade.findByUF", query = "SELECT c FROM Cidade c WHERE c.uf = :uf")})
 public class Cidade implements Serializable {
 
    // private List<Cidade> list;
@@ -40,6 +41,8 @@ public class Cidade implements Serializable {
     private Integer codigo;
     @Column(name = "nome")
     private String nome;
+    @Column(name = "uf")
+    private String uf;
 
     public Cidade() {
     }
@@ -63,6 +66,13 @@ public class Cidade implements Serializable {
     public void setNome(String nome) {
         this.nome = nome;
     }
+    public String getUF() {
+        return uf;
+    }
+
+    public void setUF(String uf) {
+        this.uf = uf;
+    }
 
     @Override
     public int hashCode() {
@@ -79,6 +89,9 @@ public class Cidade implements Serializable {
         }
         Cidade other = (Cidade) object;
         if ((this.codigo == null && other.codigo != null) || (this.codigo != null && !this.codigo.equals(other.codigo))) {
+            return false;
+        }
+        if ((this.uf == null && other.uf != null) || (this.uf != null && !this.uf.equals(other.uf))) {
             return false;
         }
         return true;
