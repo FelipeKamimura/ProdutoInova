@@ -81,7 +81,6 @@ public class CadCidade extends javax.swing.JInternalFrame {
 
         jLabel2.setText("Nome");
 
-<<<<<<< HEAD
         txtCod.setToolTipText("");
         txtCod.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
@@ -89,9 +88,7 @@ public class CadCidade extends javax.swing.JInternalFrame {
             }
         });
 
-=======
         jButton1.setBackground(new java.awt.Color(255, 0, 0));
->>>>>>> e0090e34e444adec19190cff7981ba866db83748
         jButton1.setText("Salvar novo");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
