@@ -83,6 +83,12 @@ public class CadCidade extends javax.swing.JInternalFrame {
 
         jLabel2.setText("Nome");
 
+        txtCod.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtCodKeyTyped(evt);
+            }
+        });
+
         jButton1.setText("Salvar novo");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -176,6 +182,12 @@ public class CadCidade extends javax.swing.JInternalFrame {
         new br.data.crud.CrudCidade().persist(cid);*/
     }//GEN-LAST:event_jButton1ActionPerformed
     public void add(String nomeTxt, String codTxt, String ufTxt){
+        for (br.data.entity.Cidade cid : new br.data.crud.CrudCidade().getAll()) {
+            if(txtNome.getText().equals(cid.getNome())){
+                JOptionPane.showMessageDialog(null, "Essa Cidade já existe com o código: " + cid.getCodigo(), "Erro de cadastro", 1);
+                return;
+            }
+        }
          br.data.entity.Cidade cid= new br.data.entity.Cidade();
         int cod = Integer.parseInt(codTxt);
         String nome = nomeTxt;
@@ -241,6 +253,15 @@ public class CadCidade extends javax.swing.JInternalFrame {
             listar();
         }// TODO add your handling code here:
     }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void txtCodKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCodKeyTyped
+        if (Character.isDigit(evt.getKeyChar())) {
+            super.processKeyEvent(evt);
+        }else{
+            evt.consume();
+        }
+return;// TODO add your handling code here:        // TODO add your handling code here:
+    }//GEN-LAST:event_txtCodKeyTyped
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
